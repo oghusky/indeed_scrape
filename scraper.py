@@ -6,23 +6,6 @@ from flask import redirect
 from splinter import Browser
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
-# from selenium import webdriver
-
-# chrome_options = webdriver.ChromeOptions()
-# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-# chrome_options.add_argument("--headless")
-# chrome_options.add_argument("--disable-dev-shm-usage")
-# chrome_options.add_argument("--no-sandbox")
-# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=chrome_options)
-
-# GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-# CHROMEDRIVER_PATH = os.getenv(
-#     '/app/.chromedriver/bin/chromedriver', './chromedriver.exe')
-
-# chrome_options = webdriver.ChromeOptions()
-# chrome_options.add_argument('--disable-gpu')
-# chrome_options.add_argument('--no-sandbox')
-# chrome_options.binary_location = GOOGLE_CHROME_PATH
 
 client = MongoClient(os.getenv("MONGO_URI", "mongodb://localhost:27017/"))
 db = client.jobs_db
@@ -48,7 +31,6 @@ def scrape():
     job_pages = []
     count = 0
     for page in range(0, 100, 10):
-        # url = f"https://www.indeed.com/jobs?q=software+engineer+$85,000&l=Atlanta,+GA&rbl=Atlanta,+GA&jlid=966e6327a98f7e81&explvl=entry_level"
         url = f"https://www.indeed.com/jobs?q=data+engineer+%2485%2C000&l=Atlanta%2C+GA&rbl=Atlanta%2C+GA&jlid=966e6327a98f7e81&explvl=entry_level&start={page}"
         browser = init_browser()
         browser.visit(url)

@@ -4,6 +4,7 @@ if (window.location.pathname === "/") {
     .json("/jobs")
     .then(data => {
       const dataset = data.data;
+      console.log(dataset)
       const shead = d3.select("#salary thead");
       const sbody = d3.select("#salary tbody");
       const dhead = d3.select("#mention_data thead");
@@ -59,7 +60,7 @@ if (window.location.pathname === "/keywords") {
       const counts = data.counts;
       const cleaned = data.cleaned_words;
       const raw = data.raw_words;
-      const sorted_counts = counts.sort((a, b) => b.count - a.count).slice(0, 10);
+      const sorted_counts = counts.sort((a, b) => b.count - a.count).slice(0, 20);
       const text_content = d3.select("#text-content")
       const thead = d3.select("thead");
       const tbody = d3.select("tbody");
@@ -83,7 +84,7 @@ if (window.location.pathname === "/keywords") {
           `
         })
       text_content.html(`
-        <p>The table below consists of the top 10 words used in Job Summaries for Data Engineers, in Atlanta, GA
+        <p>The table below consists of the top ${sorted_counts.length} words used in Job Summaries for Data Engineers, in Atlanta, GA
         according to <a href="https://www.indeed.com"><b>Indeed.com</b></a>. In short, from <b>${cleaned.length}</b>
         summaries scraped from Indeed the words listed below are the most frequently used.</p>
         
@@ -99,7 +100,7 @@ if (window.location.pathname === "/charts") {
     .then(data => {
       console.log(data)
       // bar chart
-      const high_counts = data.counts.sort((a, b) => b.count - a.count).slice(0, 10);
+      const high_counts = data.counts.sort((a, b) => b.count - a.count).slice(0, 12);
       const bar = {
         $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
         data: {
