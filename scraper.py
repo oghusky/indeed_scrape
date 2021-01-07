@@ -6,18 +6,23 @@ from flask import redirect
 from splinter import Browser
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
-from selenium import webdriver
+# from selenium import webdriver
 
-# from selenium.webdriver.chrome.options import Options
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+# chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--disable-dev-shm-usage")
+# chrome_options.add_argument("--no-sandbox")
+# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=chrome_options)
 
-import os
+# GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+# CHROMEDRIVER_PATH = os.getenv(
+#     '/app/.chromedriver/bin/chromedriver', './chromedriver.exe')
 
-import pickle
-
-from selenium.webdriver.support.ui import WebDriverWait
-
-from selenium.webdriver.chrome.options import Options as ChromeOptions
-
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.add_argument('--disable-gpu')
+# chrome_options.add_argument('--no-sandbox')
+# chrome_options.binary_location = GOOGLE_CHROME_PATH
 
 client = MongoClient(os.getenv("MONGO_URI", "mongodb://localhost:27017/"))
 db = client.jobs_db
@@ -25,14 +30,10 @@ db = client.jobs_db
 
 def init_browser():
     # @NOTE: Replace the path with your actual path to the chromedriver
-    # executable_path = {"executable_path": "./chromedriver"}
-    # return Browser("chrome", **executable_path, headless=True)
-    chrome_bin = os.environ.get('/app/.apt/usr/bin/google-chrome', None)
-    opts = ChromeOptions()
-    opts.binary_location = chrome_bin
-    driver = webdriver.Chrome(executable_path="/app/.chromedriver/bin/chromedriver",
-                              chrome_options=opts)
-    return driver
+    # executable_path = os.getenv({"executable_path": "CHROMEDRIVER_PATH"})
+    executable_path = {"executable_path": os.getenv(
+        "CHROMEDRIVER_PATH", "./chromedriver.exe")}
+    return Browser("chrome", **executable_path, headless=True)
 
 
 def render():
@@ -102,7 +103,8 @@ def summaries():
                  "of", "as", "can", "on", "will", "well", "have",
                  "so", "feel", "that", "or", "in", "is", "all", "may",
                  "possible", "from", "this", "they", "we", "our", "your",
-                 "mine", "ours", "you'll", "it", "you", "it's", "its", "other"]
+                 "mine", "ours", "you'll", "it", "you", "it's", "its",
+                 "other", "be", "part", "work", "data", "engineer", "engineers"]
     # does not remove words with commas and periods
     regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
     for word in split_up:
