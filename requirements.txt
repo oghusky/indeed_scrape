@@ -1,1 +1,6 @@
 gunicorn
+flask
+flask_cors
+splinter
+bs4
+pymongo
