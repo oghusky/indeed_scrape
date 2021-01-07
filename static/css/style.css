@@ -1,0 +1,17 @@
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: #fefefe;
+}
+
+.container.row.no-gutters{
+  margin: 0 auto;
+}
+
+#useless-list{
+  width: 60%;
+  margin: 0 auto;
+}
