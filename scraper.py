@@ -6,6 +6,7 @@ from flask import redirect
 from splinter import Browser
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
+
 client = MongoClient(os.getenv("MONGO_URI", "mongodb://localhost:27017/"))
 db = client.jobs_db
 

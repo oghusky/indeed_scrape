@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, jsonify
 from flask_cors import CORS
 import scraper
 app = Flask(__name__)
+app.config['MONGO_CONNECT'] = False
 CORS(app)
 
 
