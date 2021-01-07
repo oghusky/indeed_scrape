@@ -6,6 +6,18 @@ from flask import redirect
 from splinter import Browser
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
+from selenium import webdriver
+
+# from selenium.webdriver.chrome.options import Options
+
+import os
+
+import pickle
+
+from selenium.webdriver.support.ui import WebDriverWait
+
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+
 
 client = MongoClient(os.getenv("MONGO_URI", "mongodb://localhost:27017/"))
 db = client.jobs_db
@@ -13,8 +25,14 @@ db = client.jobs_db
 
 def init_browser():
     # @NOTE: Replace the path with your actual path to the chromedriver
-    executable_path = {"executable_path": "./chromedriver"}
-    return Browser("chrome", **executable_path, headless=True)
+    # executable_path = {"executable_path": "./chromedriver"}
+    # return Browser("chrome", **executable_path, headless=True)
+    chrome_bin = os.environ.get('/app/.apt/usr/bin/google-chrome', None)
+    opts = ChromeOptions()
+    opts.binary_location = chrome_bin
+    driver = webdriver.Chrome(executable_path="/app/.chromedriver/bin/chromedriver",
+                              chrome_options=opts)
+    return driver
 
 
 def render():
