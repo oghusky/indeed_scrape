@@ -5,4 +5,4 @@ splinter
 bs4
 pymongo
 dnspython
-Selenium
+selenium
